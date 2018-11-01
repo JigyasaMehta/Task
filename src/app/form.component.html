@@ -1,0 +1,52 @@
+<h1>Registration Form</h1>
+<p *ngIf="onSubmitClicked" class="errorMessage">{{errorMessageForEmail}}</p>
+<p *ngIf="onSubmitClicked" class="errorMessage">{{errorMessageForPassword}}</p>
+<div class="formLayout">
+<form [formGroup]="myform" class="form">
+    <div class="form-group" [ngClass]="{
+        'has-danger': email.invalid && email.dirty,
+        'has-success': email.valid && email.dirty
+      }">
+        <label>Email</label>
+        <input type="email"
+               class="form-control"
+               formControlName="email">
+               <span class="form-control-feedback"
+               *ngIf="email.errors && (email.dirty || email.touched)">
+            <p class="email1"*ngIf="email.errors.required">Email is required</p>
+            <p class="email2"*ngIf="email.errors.pattern">The email address must contain at least the @ character</p>
+            
+    </span> 
+    </div>
+    
+    <div class="form-group" [ngClass]="{
+        'has-danger': password.invalid && (password.dirty || password.touched),
+        'has-success': password.valid && (password.dirty || password.touched)
+      }">
+        <label>Password</label>
+        <input type="password"
+               class="form-control"
+               formControlName="password">
+        <div class="form-control-feedback"
+               *ngIf="password.errors && (password.dirty || password.touched)">
+            <p class="password1"*ngIf="password.errors.required">Password is required</p>
+            <span class="password2" *ngIf="password.errors.pattern">Password must contain one alphabet and one special character and must be 8 character long</span>
+            
+          </div>
+    </div>
+    <div>
+    <select [(ngModel)]="dropdownSelectedValue" [ngModelOptions]="{standalone: true}">
+        <option selected value="Advanced">Advanced</option>
+        <option value="Basic">Basic</option>
+        <option value="Pro">Pro</option>
+    </select>
+  </div>
+  <br>
+  <button type="submit" (click)="OnSubmit()" class="btn btn-primary button">Submit</button>
+  <button type="submit" (click)="OnClear()" class="btn btn-primary button">Clear</button>
+</form>
+</div>
+
+
+
+<router-outlet></router-outlet>
